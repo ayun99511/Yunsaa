@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeWise - Pengelolaan Waktu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">⏰ TimeWise</div>
+    <nav>
+        <a href="#beranda">Beranda</a>
+        <a href="#jadwal">Jadwal</a>
+        <a href="#tentang">Tentang</a>
+    </nav>
+</header>
+
+<section class="hero" id="beranda">
+    <div class="hero-content">
+        <p class="subtitle">ATUR WAKTUMU, RAIH TUJUANMU</p>
+        <h1>Waktu Teratur,<br>Hidup Lebih Produktif!</h1>
+        <p>
+            Kelola kegiatan sehari-hari dengan lebih mudah.
+            Catat tugas, atur jadwal, dan pantau perkembanganmu.
+        </p>
+        <a href="#jadwal" class="btn">Mulai Mengatur Waktu</a>
+    </div>
+    <div class="hero-icon">📅</div>
+</section>
+
+<section class="dashboard">
+    <h2>Dashboard Aktivitas</h2>
+    <p class="tanggal" id="tanggal"></p>
+
+    <div class="cards">
+        <div class="card">
+            <span>📝</span>
+            <h3 id="total">0</h3>
+            <p>Total Kegiatan</p>
+        </div>
+
+        <div class="card">
+            <span>✅</span>
+            <h3 id="selesai">0</h3>
+            <p>Kegiatan Selesai</p>
+        </div>
+
+        <div class="card">
+            <span>⏳</span>
+            <h3 id="belum">0</h3>
+            <p>Belum Selesai</p>
+        </div>
+    </div>
+</section>
+
+<section class="jadwal" id="jadwal">
+    <h2>📋 Jadwal Kegiatan Saya</h2>
+    <p>Tambahkan kegiatan agar waktumu lebih teratur.</p>
+
+    <form id="formKegiatan">
+        <input type="text" id="namaKegiatan"
+            placeholder="Nama kegiatan..." required>
+
+        <input type="time" id="waktu" required>
+
+        <select id="prioritas">
+            <option value="Biasa">Prioritas Biasa</option>
+            <option value="Penting">Penting</option>
+            <option value="Sangat Penting">Sangat Penting</option>
+        </select>
+
+        <button type="submit">+ Tambah Kegiatan</button>
+    </form>
+
+    <div class="progress-box">
+        <h3>Progress Kegiatan</h3>
+        <div class="progress-bg">
+            <div id="progressBar"></div>
+        </div>
+        <p id="progressText">0% selesai</p>
+    </div>
+
+    <div id="daftarKegiatan"></div>
+</section>
+
+<section class="tips" id="tentang">
+    <h2>💡 Tips Mengelola Waktu</h2>
+
+    <div class="tips-container">
+        <div class="tip">
+            <h3>01. Buat Jadwal</h3>
+            <p>Susun kegiatan harian agar lebih terarah.</p>
+        </div>
+
+        <div class="tip">
+            <h3>02. Dahulukan Prioritas</h3>
+            <p>Kerjakan tugas yang paling penting terlebih dahulu.</p>
+        </div>
+
+        <div class="tip">
+            <h3>03. Hindari Menunda</h3>
+            <p>Biasakan menyelesaikan pekerjaan tepat waktu.</p>
+        </div>
+
+        <div class="tip">
+            <h3>04. Istirahat yang Cukup</h3>
+            <p>Berikan waktu untuk beristirahat di sela kegiatan.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <h3>⏰ TimeWise</h3>
+    <p>Mulai dari sekarang, hargai setiap waktumu.</p>
+    <p>© 2026 TimeWise | Website Pengelolaan Waktu</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+  </html>
+          
