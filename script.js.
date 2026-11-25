@@ -1,0 +1,130 @@
+
+const form = document.getElementById("formKegiatan");
+const daftar = document.getElementById("daftarKegiatan");
+
+let kegiatan = JSON.parse(localStorage.getItem("kegiatan")) || [];
+
+// Menampilkan tanggal
+const sekarang = new Date();
+
+document.getElementById("tanggal").textContent =
+    sekarang.toLocaleDateString("id-ID", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    });
+
+// Menyimpan kegiatan
+function simpanData() {
+    localStorage.setItem("kegiatan", JSON.stringify(kegiatan));
+}
+
+// Menambahkan kegiatan
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const nama = document.getElementById("namaKegiatan").value;
+    const waktu = document.getElementById("waktu").value;
+    const prioritas = document.getElementById("prioritas").value;
+
+    kegiatan.push({
+        id: Date.now(),
+        nama: nama,
+        waktu: waktu,
+        prioritas: prioritas,
+        selesai: false
+    });
+
+    simpanData();
+    tampilkanKegiatan();
+    form.reset();
+});
+
+// Menampilkan daftar kegiatan
+function tampilkanKegiatan() {
+    daftar.innerHTML = "";
+
+    kegiatan.sort((a, b) => a.waktu.localeCompare(b.waktu));
+
+    kegiatan.forEach(item => {
+        const div = document.createElement("div");
+
+        div.className = "kegiatan" +
+            (item.selesai ? " done" : "");
+
+        const info = document.createElement("div");
+        info.className = "info";
+
+        const nama = document.createElement("strong");
+        nama.className = "nama";
+        nama.textContent = item.nama;
+
+        const detail = document.createElement("p");
+        detail.textContent =
+            "⏰ " + item.waktu +
+            " | Prioritas: " + item.prioritas;
+
+        info.appendChild(nama);
+        info.appendChild(detail);
+
+        const tombolSelesai = document.createElement("button");
+        tombolSelesai.textContent =
+            item.selesai ? "Batalkan" : "Selesai";
+
+        tombolSelesai.addEventListener("click", () => {
+            item.selesai = !item.selesai;
+            simpanData();
+            tampilkanKegiatan();
+        });
+
+        const tombolHapus = document.createElement("button");
+        tombolHapus.textContent = "Hapus";
+        tombolHapus.className = "hapus";
+
+        tombolHapus.addEventListener("click", () => {
+            kegiatan = kegiatan.filter(
+                data => data.id !== item.id
+            );
+
+            simpanData();
+            tampilkanKegiatan();
+        });
+
+        div.appendChild(info);
+        div.appendChild(tombolSelesai);
+        div.appendChild(tombolHapus);
+
+        daftar.appendChild(div);
+    });
+
+    hitungProgress();
+}
+
+// Menghitung jumlah kegiatan dan progress
+function hitungProgress() {
+    const total = kegiatan.length;
+
+    const selesai = kegiatan.filter(
+        item => item.selesai
+    ).length;
+
+    const belum = total - selesai;
+
+    const persen = total === 0
+        ? 0
+        : Math.round((selesai / total) * 100);
+
+    document.getElementById("total").textContent = total;
+    document.getElementById("selesai").textContent = selesai;
+    document.getElementById("belum").textContent = belum;
+
+    document.getElementById("progressBar").style.width =
+        persen + "%";
+
+    document.getElementById("progressText").textContent =
+        persen + "% kegiatan selesai";
+}
+
+// Menampilkan data saat website dibuka
+tampilkanKegiatan();
